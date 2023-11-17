@@ -10,38 +10,17 @@ const LocationForm = () => {
     setLocation(city);
 
     try {
-    let cityInput = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${city}&format=json&apiKey=INSERT_API_KEY`);
-    let response = await cityInput.json();
-    console.log(response)
-    } catch (err) {
-      console.log(err);
+      const response = await axios.get(
+        `https://api.geoapify.com/v1/autocomplete?text=${value}&apiKey=YOUR_GEOAPIFY_API_KEY`
+      );
+
+      // Extract suggestions from the response
+      const newSuggestions = response.data.features.map((feature) => feature.properties.formatted);
+      setSuggestions(newSuggestions);
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
     }
-    
-    // .then(response => response.json())
-  // .then(result => console.log(result))
-  // .catch(error => console.log('error', error)); 
-  }
-  
-
-  // const handleInputChange = async (value) => {
-  //   setLocation(value);
-
-    // try {
-    //   // const response = await axios.get(
-
-
-
-    //     await axios.get(
-    //     `https://api.geoapify.com/v1/autocomplete?text=${value}&apiKey=20bd853d6c3b4e25a263fb62ddf8101b`
-    //   );
-    //     console.log("success");
-    //   // Extract suggestions from the response
-    //   // const newSuggestions = response.data.features.map((feature) => feature.properties.formatted);
-    //   // setSuggestions(newSuggestions);
-    // } catch (error) {
-    //   console.error('Error fetching suggestions:', error);
-    // }
-  // };
+  };
 
   const handleSelectLocation = (selectedLocation) => {
     setLocation(selectedLocation);
