@@ -11,7 +11,7 @@ const LocationForm = () => {
 
     try {
       const response = await axios.get(
-        `https://api.geoapify.com/v1/autocomplete?text=${value}&apiKey=20bd853d6c3b4e25a263fb62ddf8101b`
+        `https://api.geoapify.com/v1/autocomplete?text=${value}&apiKey=YOUR_GEOAPIFY_API_KEY`
       );
 
       // Extract suggestions from the response
