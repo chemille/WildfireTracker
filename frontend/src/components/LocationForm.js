@@ -1,57 +1,91 @@
-// LocationForm.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-geocoder-autocomplete';
+import '@geoapify/geocoder-autocomplete/styles/minimal.css';
+
 
 const LocationForm = () => {
-  const [location, setLocation] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  //const navigate = useNavigate();
 
-  const handleInputChange = async (city) => {
-    setLocation(city);
-    const YOUR_GEOAPIFY_API_KEY = '20bd853d6c3b4e25a263fb62ddf8101b';
 
+  function handleSelect(value) {
+    console.log(value)
+    setSelectedLocation(value)
+    return selectedLocation
+  }
+
+  // const handleSelect = (e) => {
+  //   e.preventDefault(); 
+  //   let userLocation = e.target.classList;
+  //   // let location = userInput
+  //   setSelectedLocation(userLocation);
+  //   console.log(selectedLocation)
+  // };
+
+  const getCoordinates = async () => {
+    await fetch("https://api.geoapify.com/v1/geocode/search?text=Hartford&lang=en&limit=4&format=json&apiKey=GEOAPIFY_KEY")
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  const handleSubmit2 = (value) => {
     try {
-      let response = await axios.get(
-        `https://api.geoapify.com/v1/autocomplete?text=${city}&apiKey=${YOUR_GEOAPIFY_API_KEY}`
-      );
-
-// Extract suggestions from the response
-const newSuggestions = response.data.features.map((feature) => feature.properties.formatted);
-setSuggestions(newSuggestions);
+      console.log(value)
+      setSelectedLocation(value)
+      //console.error('Location is empty. Please enter a valid location.');
+      //return;
+      //getCoordinates()
+      // Redirect to the map page with the selected location
+      //navigate(`/map?location=${selectedLocation.properties.formatted}`);
+      console.log('success')
     } catch (error) {
-  console.error('Error fetching suggestions:', error);
-}
+      console.error('Error handling form submission:', error);
+    }
   };
 
-const handleSelectLocation = (selectedLocation) => {
-  setLocation(selectedLocation);
-  setSuggestions([]);
+
+  const handleSubmit = (location) => {
+    //event.preventDefault();
+    //console.log(event.target.value)
+
+
+    try {
+      //if (!selectedLocation) {
+      console.log(selectedLocation);
+      handleSelect(selectedLocation);
+
+
+      //console.error('Location is empty. Please enter a valid location.');
+      //return;
+
+
+      getCoordinates()
+      // Redirect to the map page with the selected location
+      //navigate(`/map?location=${selectedLocation.properties.formatted}`);
+    } catch (error) {
+      console.error('Error handling form submission:', error);
+    }
+  };
+
+
+  console.log('Render form with selected location:', selectedLocation);
+
+  return (
+    <GeoapifyContext apiKey='GEOAPIFY_CONTEXT_KEY'>
+      {/* <form> */}
+      {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
+
+      <GeoapifyGeocoderAutocomplete
+        limit={8}
+        preprocessHook={handleSelect}
+      />
+      <button type="submit">Submit</button>
+      {/* </form> */}
+    </GeoapifyContext>
+  );
 };
 
-return (
-  <div>
-    <label htmlFor="location">Location:</label>
-    <input
-      type="text"
-      id="location"
-      value={location}
-      onChange={(e) => handleInputChange(e.target.value)}
-    />
-
-    <ul>
-      {suggestions.map((suggest, index) => (
-        <li key={index} onClick={() => handleSelectLocation(suggest)}>
-          {suggest}
-        </li>
-      ))}
-    </ul>
-
-    <button type="submit">Submit</button>
-  </div>
-);
-};
 
 export default LocationForm;
-
-
-//Create the popup that shows the location is autofilling based on the value, from there they will get the selected resources
