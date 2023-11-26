@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.map {
+  width: 50vw;
+  height: 50vh;
+  position: relative;
+}
+/* If we want the map to take up the entire window, change to 100vw, 100vh */
