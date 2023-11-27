@@ -47,29 +47,20 @@ const LocationForm = () => {
 
   console.log('Render form with selected location:', selectedLocation);
 
-  return (
-    <div>
-      <label htmlFor="location">Location:</label>
-      <input
-        type="text"
-        id="location"
-        value={location}
-        onChange={(e) => handleInputChange(e.target.value)}
-      />
+    return (
+      <GeoapifyContext apiKey='KEY' >
+        <form onSubmit={handleSubmit}>
+          {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
+          <GeoapifyGeocoderAutocomplete
+            limit={5}
+            preprocessHook={handleSelect}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </GeoapifyContext>
 
-      <ul>
-        {suggestions.map((suggest, index) => (
-          <li key={index} onClick={() => handleSelectLocation(suggest)}>
-            {suggest}
-          </li>
-        ))}
-      </ul>
-
-      <button type="submit">Submit</button>
-    </div>
-  );
-};
-
+    );
+  };
 
 
 export default LocationForm;
