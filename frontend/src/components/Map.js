@@ -62,7 +62,7 @@ const Map = () => {
     >
       <GoogleMapReact
               key={JSON.stringify(wildFires)} // Update key when wildFires change
-              bootstrapURLKeys={{ key: `AIzaSyCpqNPsMMig9s7v9-HhjVFNCFa0L66uJbg` }}
+              bootstrapURLKeys={{ key: `GOOGLE_MAP_KEY` }}
               center={center}
               zoom={zoom}
               draggable={(false)}

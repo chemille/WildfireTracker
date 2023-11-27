@@ -16,7 +16,7 @@ const LocationForm = () => {
   }
 
   const getCoordinates = async () => {
-    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&filter=countrycode:us&limit=4&format=json&apiKey=bed63ecdf0ec4b8ebc4bccd4e3d3d5b7`)
+    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&filter=countrycode:us&limit=4&format=json&apiKey=KEY`)
     let coordinatesArr = [response.data.results[0].lat, response.data.results[0].lon]
     return coordinatesArr
   }
@@ -48,7 +48,7 @@ const LocationForm = () => {
   console.log('Render form with selected location:', selectedLocation);
 
     return (
-      <GeoapifyContext apiKey='20bd853d6c3b4e25a263fb62ddf8101b'>
+      <GeoapifyContext apiKey='KEY'>
         <form onSubmit={handleSubmit}>
           {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
           <GeoapifyGeocoderAutocomplete
