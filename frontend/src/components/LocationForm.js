@@ -1,100 +1,66 @@
-// // LocationForm.js
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// const LocationForm = () => {
-//   const [location, setLocation] = useState('');
-//   const [suggestions, setSuggestions] = useState([]);
-
-//   const handleInputChange = async (value) => {
-//     setLocation(value);
-
-//     try {
-//       const response = await axios.get(
-//         `https://api.geoapify.com/v1/autocomplete?text=${value}&apiKey=YOUR_GEOAPIFY_API_KEY`
-//       );
-
-//       // Extract suggestions from the response
-//       const newSuggestions = response.data.features.map((feature) => feature.properties.formatted);
-//       setSuggestions(newSuggestions);
-//     } catch (error) {
-//       console.error('Error fetching suggestions:', error);
-//     }
-//   };
-
-//   const handleSelectLocation = (selectedLocation) => {
-//     setLocation(selectedLocation);
-//     setSuggestions([]);
-//   };
-
-//   return (
-//     <div>
-//       <label htmlFor="location">Location:</label>
-//       <input
-//         type="text"
-//         id="location"
-//         value={location}
-//         onChange={(e) => handleInputChange(e.target.value)}
-//       />
-
-//       <ul>
-//         {suggestions.map((suggest, index) => (
-//           <li key={index} onClick={() => handleSelectLocation(suggest)}>
-//             {suggest}
-//           </li>
-//         ))}
-//       </ul>
-
-//       <button type="submit">Submit</button>
-//     </div>
-//   );
-// };
-
-// export default LocationForm;
-
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { json, useNavigate } from 'react-router-dom';
 import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-geocoder-autocomplete';
 import '@geoapify/geocoder-autocomplete/styles/minimal.css';
+import axios from 'axios';
+
 
 const LocationForm = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const navigate = useNavigate();
 
-  const handleSelect = (location) => {
-    console.log('Selected location:', location);
-    setSelectedLocation(location);
-  };
+  function handleSelect(value) {
+    console.log(value)
+    setSelectedLocation(value)
+    return selectedLocation
+  }
 
-  const handleSubmit = (event) => {
+  const getCoordinates = async () => {
+    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&filter=countrycode:us&limit=4&format=json&apiKey=KEY`)
+    let coordinatesArr = [response.data.results[0].lat, response.data.results[0].lon]
+    return coordinatesArr
+  }
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    let coordinates = await getCoordinates();
+    console.log('coordinates:', coordinates)
 
     try {
-      if (!selectedLocation) {
-        console.error('Location is empty. Please enter a valid location.');
-        return;
+      if (selectedLocation && coordinates) {
+        // Redirect to the map page with the selected location
+        navigate(`/map?location=${selectedLocation}`, { state: { coordinates } });
+        
+      } else if (!selectedLocation) {
+        alert('Invalid location selected:', selectedLocation);
+        console.error('Invalid location selected:', selectedLocation);
+      } else if (!coordinates) {
+        alert('Could not find coordinates for selected location, please try again')
       }
-
-      // Redirect to the map page with the selected location
-      navigate(`/map?location=${selectedLocation.properties.formatted}`);
     } catch (error) {
+      alert('Error handling form submission. please try again');
       console.error('Error handling form submission:', error);
     }
   };
 
+
   console.log('Render form with selected location:', selectedLocation);
 
-  return (
-    <GeoapifyContext apiKey="API_KEY">
-      <form onSubmit={handleSubmit}>
-        <GeoapifyGeocoderAutocomplete
-          placeholder="Type a location"
-          onSelect={handleSelect}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </GeoapifyContext>
-  );
-};
+    return (
+      <GeoapifyContext apiKey='KEY' >
+        <form onSubmit={handleSubmit}>
+          {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
+          <GeoapifyGeocoderAutocomplete
+            limit={5}
+            preprocessHook={handleSelect}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </GeoapifyContext>
+
+    );
+  };
+
 
 export default LocationForm;
