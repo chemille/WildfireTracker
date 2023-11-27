@@ -15,7 +15,7 @@ const Map = () => {
     lng: coordinates[1],
   });
 
-  const [zoom, setZoom] = useState(7);
+  const [zoom, setZoom] = useState(7.5);
   const [wildFires, setWildFires] = useState([]);
 
   const fetchWildFires = async () => {
@@ -60,7 +60,7 @@ const Map = () => {
 
   return (
     <div
-      style={{ height: "70vh", width: "70%", margin: "10px" }}
+      // style={{ height: "70vh", width: "70%", margin: "10px" }}
       className="map"
     >
       <GoogleMapReact
@@ -68,6 +68,8 @@ const Map = () => {
         bootstrapURLKeys={{ key: REACT_APP_GMAPS_API_KEY }}
         center={center}
         zoom={zoom}
+        draggable={false} 
+        options={{ zoomControl: false }}
         onChange={({ center, zoom }) => {
           // Uncomment the following lines if you want to update center and zoom
           setCenter(center);

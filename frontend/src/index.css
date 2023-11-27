@@ -12,8 +12,14 @@ code {
     monospace;
 }
 
-/* .map {
-  width: 50vw;
-  height: 50vh;
+.map {
+  width: 75vw;
+  height: 75vh;
   position: relative;
+}
+
+/* .fire-marker {
+  position: absolute;
 } */
+
+
