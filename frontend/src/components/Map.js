@@ -4,6 +4,8 @@ import axios from "axios";
 import WildFireMarker from "./WildFireMarker";
 import { useLocation } from "react-router-dom";
 
+const {REACT_APP_GMAPS_API_KEY} = process.env
+
 const Map = () => {
 
   const location = useLocation();
@@ -63,7 +65,7 @@ const Map = () => {
     >
       <GoogleMapReact
         key={JSON.stringify(wildFires)} // Update key when wildFires change
-        bootstrapURLKeys={{ key: `GOOGLE_KEY` }}
+        bootstrapURLKeys={{ key: REACT_APP_GMAPS_API_KEY }}
         center={center}
         zoom={zoom}
         onChange={({ center, zoom }) => {

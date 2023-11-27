@@ -4,6 +4,7 @@ import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-g
 import '@geoapify/geocoder-autocomplete/styles/minimal.css';
 import axios from 'axios';
 
+const {REACT_APP_GEOAPIFY_API_KEY} = process.env
 
 const LocationForm = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -16,7 +17,7 @@ const LocationForm = () => {
   }
 
   const getCoordinates = async () => {
-    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&filter=countrycode:us&limit=4&format=json&apiKey=KEY`)
+    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&filter=countrycode:us&limit=4&format=json&apiKey=${REACT_APP_GEOAPIFY_API_KEY}`)
     let coordinatesArr = [response.data.results[0].lat, response.data.results[0].lon]
     return coordinatesArr
   }
@@ -48,7 +49,7 @@ const LocationForm = () => {
   console.log('Render form with selected location:', selectedLocation);
 
     return (
-      <GeoapifyContext apiKey='KEY' >
+      <GeoapifyContext apiKey={REACT_APP_GEOAPIFY_API_KEY} >
         <form onSubmit={handleSubmit}>
           {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
           <GeoapifyGeocoderAutocomplete
