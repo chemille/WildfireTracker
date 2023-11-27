@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import LocationForm from './components/LocationForm';
 import Map from './components/Map';
 

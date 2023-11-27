@@ -58,27 +58,27 @@ const Map = () => {
 
   return (
     <div
-      style={{ height: "70vh", width: "70%", margin: "10px" }}
       className="map"
     >
       <GoogleMapReact
-        key={JSON.stringify(wildFires)} // Update key when wildFires change
-        bootstrapURLKeys={{ key: `GOOGLE_KEY` }}
-        center={center}
-        zoom={zoom}
-        onChange={({ center, zoom }) => {
-          // Uncomment the following lines if you want to update center and zoom
+              key={JSON.stringify(wildFires)} // Update key when wildFires change
+              bootstrapURLKeys={{ key: `AIzaSyCpqNPsMMig9s7v9-HhjVFNCFa0L66uJbg` }}
+              center={center}
+              zoom={zoom}
+              draggable={(false)}
+              options={{ zoomControl: false }}
+            onChange={({ center, zoom }) => {
           setCenter(center);
-          setZoom(zoom);
+        setZoom(zoom);
         }}
       >
-        {renderMarkers()}
+              {renderMarkers()}
       </GoogleMapReact>
       <button type="submit" onClick={fetchWildFires}>
         Reload Wildfires
       </button>
     </div>
   );
-};
+    }
 
 export default Map;
