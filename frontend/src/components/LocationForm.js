@@ -159,9 +159,10 @@
 
 // export default LocationForm;
 
-///////////////////////// Tazmeen got it working!!!! ///////////////////////
+///////////////////////// Tazmeen got the map to render!! ///////////////////////
+
 import React, { useState } from 'react';
-import { json, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-geocoder-autocomplete';
 import '@geoapify/geocoder-autocomplete/styles/minimal.css';
 import axios from 'axios';
@@ -178,27 +179,32 @@ const LocationForm = () => {
     return selectedLocation
   }
 
-  const getCoordinates = async (e) => {
-    e.preventDefault()
-    
-    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&limit=4&format=json&apiKey=${ REACT_APP_GEOAPIFY_API_KEY }`);
-    let latitude = response.data.results[0].lat
-    let longitude = response.data.results[0].lon
-    return ([latitude, longitude])
+  const getCoordinates = async () => {
+    //updated Geoapify url to limit to US searches
+    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&filter=countrycode:us&limit=4&format=json&apiKey=92506ca13e3c4691977e77029546da2f`);
+    let coordinatesArr = [response.data.results[0].lat, response.data.results[0].lon]
+    return coordinatesArr
   }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
   
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    let coordinates = await getCoordinates();
+    console.log('coordinates:', coordinates)
+
     try {
-      if (selectedLocation) {
+      if (selectedLocation && coordinates) {
         // Redirect to the map page with the selected location
-        navigate(`/map?location=${selectedLocation}`);
-      } else {
-        console.error('No or invalid location selected:', selectedLocation);
-      
+        navigate(`/map?location=${selectedLocation}`, { state: { coordinates } });
+        
+      } else if (!selectedLocation) {
+        alert('Invalid location selected:', selectedLocation);
+        console.error('Invalid location selected:', selectedLocation);
+      } else if (!coordinates) {
+        alert('Could not find coordinates for selected location, please try again')
       }
     } catch (error) {
+      alert('Error handling form submission. please try again');
       console.error('Error handling form submission:', error);
     }
   };
@@ -206,20 +212,21 @@ const LocationForm = () => {
 
   console.log('Render form with selected location:', selectedLocation);
 
-  return (
-    <GeoapifyContext apiKey={ REACT_APP_GEOAPIFY_API_KEY }>
-      <form onSubmit={handleSubmit}>
-      {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
+    return (
+      <GeoapifyContext apiKey={ REACT_APP_GEOAPIFY_API_KEY } >
+        <form onSubmit={handleSubmit}>
+          {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
+          <GeoapifyGeocoderAutocomplete
+            placeholder="Enter your City, State"
+            limit={5}
+            preprocessHook={handleSelect}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </GeoapifyContext>
 
-      <GeoapifyGeocoderAutocomplete
-          limit={5}
-          preprocessHook={handleSelect}
-      />
-      <button type="submit">Submit</button>
-      </form>
-    </GeoapifyContext>
-  );
-};
+    );
+  };
 
 
 export default LocationForm;
