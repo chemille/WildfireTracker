@@ -1,15 +1,14 @@
 import React from 'react';
-import { Icon } from '@iconify-icon/react';
-import alertIcon from '@iconify-icons/mdi-light/alert';
+const WildFireMarker = ({ lat, lng, onClick }) => {
+  // console.log("Marker Coordinates:", lat, lng);
 
-const WildFireMarker = ({lat, lng, onClick}) => {
-    return (
-        <div style={{
-            position: 'absolute',
-        }} className = "wildfire-marker" onClick = {onClick}>
-<Icon icon={alertIcon} className ="wildfire-icon"></Icon>
-        </div>
-    )
-}
+  return (
+    <div className="disaster-marker" onClick={onClick}>
+      <span role="img" aria-label="fire" style={{ fontSize: '20px' }}>
+        🔥
+      </span>
+    </div>
+  );
+};
 
-export default WildFireMarker
+export default WildFireMarker;

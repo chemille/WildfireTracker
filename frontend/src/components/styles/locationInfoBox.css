@@ -1,0 +1,12 @@
+.location-info {
+  position: absolute;
+  top: 500px;
+  right: 50px;
+  width: 440px;
+  min-height: 200px;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  font-size: 18px;
+  color: #ffff;
+}
