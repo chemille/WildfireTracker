@@ -4,6 +4,7 @@ import axios from "axios";
 import WildFireMarker from "./WildFireMarker";
 import { useLocation } from "react-router-dom";
 import LocationInfoBox from "./LocationInfoBox";
+import './styles/map.css'
 
 const Map = () => {
 
@@ -30,12 +31,15 @@ const Map = () => {
           lat: ev.geometries[0].coordinates[1],
           lng: ev.geometries[0].coordinates[0],
         }));
-      // console.log("New Wildfires:", newWildFires);
+      console.log("New Wildfires:", newWildFires);
       setWildFires(newWildFires);
     } catch (error) {
       console.error("Error fetching natural disasters:", error);
     }
   };
+  const closeInfoBox = () => {
+    setClicked(null); // This will hide the LocationInfoBox
+  }
 
   const renderMarkers = () => {
     // console.log("WildFires in renderMarkers:", wildFires);
@@ -81,7 +85,12 @@ const Map = () => {
         
         {/* <LocationInfoBox title = "hartford" /> */}
       </GoogleMapReact>
-      <LocationInfoBox title={clicked}> </LocationInfoBox>
+      {clicked && (
+        <LocationInfoBox
+          title={clicked} 
+          onClose={closeInfoBox}
+        />
+      )}
       <button type="submit" onClick={fetchWildFires}>
         Reload Wildfires
       </button>

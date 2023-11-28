@@ -12,18 +12,3 @@ code {
     monospace;
 }
 
-.map {
-  width: 75vh;
-  height: 75vh;
-  position: relative;
-}
-
-
-/* .location-info ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.location-info li {
-  padding: 5px 0;
-} */
