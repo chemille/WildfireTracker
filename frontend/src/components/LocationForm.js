@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { json, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-geocoder-autocomplete';
 import '@geoapify/geocoder-autocomplete/styles/minimal.css';
 import axios from 'axios';
@@ -25,7 +25,6 @@ const LocationForm = () => {
     event.preventDefault();
 
     let coordinates = await getCoordinates();
-    // console.log('coordinates:', coordinates)
 
     try {
       if (selectedLocation && coordinates) {
@@ -50,7 +49,6 @@ const LocationForm = () => {
   return (
     <GeoapifyContext apiKey={process.env.REACT_APP_GEOAPIFY_CONTEXT_KEY} >
       <form onSubmit={handleSubmit}>
-        {/* <input placeholder="Type a location" type="text" name="location" autoComplete='on' /> */}
         <GeoapifyGeocoderAutocomplete
           limit={5}
           preprocessHook={handleSelect}

@@ -38,27 +38,23 @@ const Map = () => {
     }
   };
   const closeInfoBox = () => {
-    setClicked(null); // This will hide the LocationInfoBox
+    setClicked(null); 
   }
 
   const renderMarkers = () => {
-    // console.log("WildFires in renderMarkers:", wildFires);
-  
-    return wildFires.map((fire, index) => (
+      return wildFires.map((fire, index) => (
       <WildFireMarker
         key={index}
         lat={fire.lat}
         lng={fire.lng}
         onClick={() => {
           setClicked({ "title":fire.title, "latitude": fire.lat, "longitude":fire.lng })
-          // console.log(fire.title)
         }}
       />
     ));
   };
 
   useEffect(() => {
-    // console.log("Component mounted");
     fetchWildFires();
   }, []);
   
@@ -76,14 +72,12 @@ const Map = () => {
               draggable={(false)}
               options={{ zoomControl: false }}
             onChange={({ center, zoom }) => {
-          // Uncomment the following lines if you want to update center and zoom
           setCenter(center);
         setZoom(zoom);
         }}
       >
         {renderMarkers()}
         
-        {/* <LocationInfoBox title = "hartford" /> */}
       </GoogleMapReact>
       {clicked && (
         <LocationInfoBox
