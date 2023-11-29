@@ -107,7 +107,7 @@ Meet the awesome team behind this project:
 
 ### Farrah U. --> [https://github.com/Farrah-Unger]([https://github.com/Farrah-Unger])
 
-### Tazmeen A. --> [https://github.com/TazA01)]([https://github.com/TazA01]) 
+### Tazmeen A. --> [https://github.com/TazA01]([https://github.com/TazA01]) 
 
 ### Michelle O. --> [https://github.com/chemille]([https://github.com/chemille]) 
 
