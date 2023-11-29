@@ -4,7 +4,7 @@ import axios from "axios";
 import WildFireMarker from "./WildFireMarker";
 import { useLocation } from "react-router-dom";
 import LocationInfoBox from "./LocationInfoBox";
-import './styles/map.css'
+import '../styles/map.css'
 
 const Map = () => {
 
@@ -50,7 +50,7 @@ const Map = () => {
         lat={fire.lat}
         lng={fire.lng}
         onClick={() => {
-          setClicked(fire.title)
+          setClicked({ "title":fire.title, "latitude": fire.lat, "longitude":fire.lng })
           // console.log(fire.title)
         }}
       />
@@ -87,7 +87,9 @@ const Map = () => {
       </GoogleMapReact>
       {clicked && (
         <LocationInfoBox
-          title={clicked} 
+          title={clicked.title} 
+          lat={clicked.latitude}
+          lng={clicked.longitude}
           onClose={closeInfoBox}
         />
       )}
