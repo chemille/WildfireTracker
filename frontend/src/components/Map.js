@@ -3,6 +3,7 @@
 // import axios from "axios";
 // import WildFireMarker from "./WildFireMarker";
 // import { useLocation } from "react-router-dom";
+// import LocationInfoBox from './LocationInfoBox';
 
 // const {REACT_APP_GMAPS_API_KEY} = process.env
 
@@ -14,6 +15,8 @@
 //     lat: coordinates[0],
 //     lng: coordinates[1],
 //   });
+
+//   const [selectedFire, setSelectedFire] = useState([]);
 
 //   const [zoom, setZoom] = useState(7.5);
 //   const [wildFires, setWildFires] = useState([]);
@@ -38,17 +41,18 @@
 //     }
 //   };
 
+//   const handleMarkerClick = (fire) => {
+//   setSelectedFire(fire);
+
 //   const renderMarkers = () => {
 //     console.log("WildFires in renderMarkers:", wildFires);
   
-//     return wildFires.map((fire, index) => (
+//     return wildFires.map((fire) => (
 //       <WildFireMarker
-//         key={index}
+//         key={fire.id}
 //         lat={fire.lat}
 //         lng={fire.lng}
-//         onClick={() => {
-//           console.log(fire.title);
-//         }}
+//         onClick={() => handleMarkerClick(fire)}
 //       />
 //     ));
 //   };
@@ -78,6 +82,7 @@
 //       >
 //         {renderMarkers()}
 //       </GoogleMapReact>
+//       <LocationInfoBox fire={selectedFire} />
 //       <button type="submit" onClick={fetchWildFires}>
 //         Reload Wildfires
 //       </button>
@@ -94,22 +99,23 @@ import axios from "axios";
 import WildFireMarker from "./WildFireMarker";
 import { useLocation } from "react-router-dom";
 import LocationInfoBox from './LocationInfoBox';
+import '../styles/map.css'
 
 const {REACT_APP_GMAPS_API_KEY} = process.env
 
 const Map = () => {
-  
+
   const location = useLocation();
   const { coordinates } = location.state;
   const [center, setCenter] = useState({
     lat: coordinates[0],
     lng: coordinates[1],
   });
+  const [clicked, setClicked] = useState(null)
 
-  const [zoom, setZoom] = useState(7.5);
-  const [wildFires, setWildFires] = useState([]);
-  const [selectedFire, setSelectedFire] = useState(null);
-
+  const [zoom, setZoom] = useState(7);
+    const [wildFires, setWildFires] = useState([]);
+    
   const fetchWildFires = async () => {
     try {
       const response = await axios.get(
@@ -122,63 +128,74 @@ const Map = () => {
           lat: ev.geometries[0].coordinates[1],
           lng: ev.geometries[0].coordinates[0],
         }));
-
       console.log("New Wildfires:", newWildFires);
       setWildFires(newWildFires);
-
     } catch (error) {
       console.error("Error fetching natural disasters:", error);
     }
   };
+  const closeInfoBox = () => {
+    setClicked(null); // This will hide the LocationInfoBox
+  }
 
-  const handleMarkerClick = (fire) => {
-    setSelectedFire(fire);
-  };
-  
   const renderMarkers = () => {
-    console.log("WildFires in renderMarkers:", wildFires);
-
-    return wildFires.map((fire) => (
+    // console.log("WildFires in renderMarkers:", wildFires);
+  
+    return wildFires.map((fire, index) => (
       <WildFireMarker
-        key={fire.id}
+        key={index}
         lat={fire.lat}
         lng={fire.lng}
-        onClick={() => handleMarkerClick(fire)}
+        onClick={() => {
+          setClicked({ "title":fire.title, "latitude": fire.lat, "longitude":fire.lng })
+          // console.log(fire.title)
+        }}
       />
     ));
   };
 
   useEffect(() => {
-    console.log("Component mounted");
+    // console.log("Component mounted");
     fetchWildFires();
   }, []);
-
+  
+  console.log("Current clicked state:", clicked);
+  
   return (
     <div
-      // style={{ height: "70vh", width: "70%", margin: "10px" }}
       className="map"
     >
       <GoogleMapReact
-        key={JSON.stringify(wildFires)} // Update key when wildFires change
-        bootstrapURLKeys={{ key: REACT_APP_GMAPS_API_KEY }}
-        center={center}
-        zoom={zoom}
-        draggable={false} 
-        options={{ zoomControl: false }}
-        onChange={({ center, zoom }) => {
+              key={JSON.stringify(wildFires)} // Update key when wildFires change
+              bootstrapURLKeys={{ key: REACT_APP_GMAPS_API_KEY }}
+              center={center}
+              zoom={zoom}
+              draggable={(false)}
+              options={{ zoomControl: false }}
+            onChange={({ center, zoom }) => {
           // Uncomment the following lines if you want to update center and zoom
           setCenter(center);
-          setZoom(zoom);
+        setZoom(zoom);
         }}
       >
         {renderMarkers()}
+        
+        {/* <LocationInfoBox title = "hartford" /> */}
       </GoogleMapReact>
-      <LocationInfoBox fire={selectedFire} />
+      {clicked && (
+        <LocationInfoBox
+          title={clicked.title} 
+          lat={clicked.latitude}
+          lng={clicked.longitude}
+          onClose={closeInfoBox}
+        />
+      )}
       <button type="submit" onClick={fetchWildFires}>
         Reload Wildfires
       </button>
     </div>
   );
+    
 };
 
 export default Map;
