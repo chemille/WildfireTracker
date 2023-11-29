@@ -18,7 +18,6 @@ const LocationInfoBox = ({ title, lat, lng, onClose }) => {
                 shelterArr.push([shelters.data.features[i].properties.formatted])
             }
         }
-        console.log(shelters.data)
         setResources(shelterArr)
 
     }
@@ -51,6 +50,8 @@ const LocationInfoBox = ({ title, lat, lng, onClose }) => {
         }
         setResources(hospitalArr)
     }
+    
+    console.log('resources', resources);
 
     return (
         <div className="location-info">

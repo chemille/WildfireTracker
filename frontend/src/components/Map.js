@@ -17,8 +17,8 @@ const Map = () => {
   const [clicked, setClicked] = useState(null)
 
   const [zoom, setZoom] = useState(7);
-    const [wildFires, setWildFires] = useState([]);
-    
+  const [wildFires, setWildFires] = useState([]);
+
   const fetchWildFires = async () => {
     try {
       const response = await axios.get(
@@ -38,17 +38,17 @@ const Map = () => {
     }
   };
   const closeInfoBox = () => {
-    setClicked(null); 
+    setClicked(null);
   }
 
   const renderMarkers = () => {
-      return wildFires.map((fire, index) => (
+    return wildFires.map((fire, index) => (
       <WildFireMarker
         key={index}
         lat={fire.lat}
         lng={fire.lng}
         onClick={() => {
-          setClicked({ "title":fire.title, "latitude": fire.lat, "longitude":fire.lng })
+          setClicked({ "title": fire.title, "latitude": fire.lat, "longitude": fire.lng })
         }}
       />
     ));
@@ -57,42 +57,40 @@ const Map = () => {
   useEffect(() => {
     fetchWildFires();
   }, []);
-  
+
   console.log("Current clicked state:", clicked);
-  
+
   return (
     <div
       className="map"
     >
       <GoogleMapReact
-              key={JSON.stringify(wildFires)} // Update key when wildFires change
-              bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAPS_KEY}` }}
-              center={center}
-              zoom={zoom}
-              draggable={(false)}
-              options={{ zoomControl: false }}
-            onChange={({ center, zoom }) => {
+        key={JSON.stringify(wildFires)} // Update key when wildFires change
+        bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_MAPS_KEY}` }}
+        center={center}
+        zoom={zoom}
+        draggable={(false)}
+        options={{ zoomControl: false }}
+        onChange={({ center, zoom }) => {
           setCenter(center);
-        setZoom(zoom);
+          setZoom(zoom);
         }}
       >
         {renderMarkers()}
-        
+
       </GoogleMapReact>
       {clicked && (
         <LocationInfoBox
-          title={clicked.title} 
+          title={clicked.title}
           lat={clicked.latitude}
           lng={clicked.longitude}
           onClose={closeInfoBox}
         />
       )}
-      <button type="submit" onClick={fetchWildFires}>
-        Reload Wildfires
-      </button>
+
     </div>
   );
-    
+
 };
 
 export default Map;
