@@ -1,8 +1,8 @@
-# WildfireTracker
+# WildfireWatchtower
 
 ## Overview
 
-This respository contains the source code for the WildfireTracker application. The development of this web application aims to assist individuals in checking for nearby wildfires and offering relevant resources such as hospitals, lodging, and safe havens. 
+This respository contains the source code for the WildfireWatchtower application. The development of this web application aims to assist individuals in checking for nearby wildfires and offering relevant resources such as hospitals, lodging, and safe havens. 
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ Before you begin, ensure you have the following dependencies installed:
 
 ## Installation
 
-To run the WildfireTracker locally, follow these steps:
+To run the WildfireWatchtower locally, follow these steps:
 
 1. Clone this repository to your local machine.
    ```bash
@@ -36,7 +36,7 @@ To run the WildfireTracker locally, follow these steps:
 
 2. Navigate to the project directory.
    ```bash
-   cd wildfiretracker
+   cd wildfirewatchtower
    cd frontend
 
 3. Install the required dependencies using npm.
@@ -47,7 +47,7 @@ To run the WildfireTracker locally, follow these steps:
    ```bash
    npm start
 
-5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to access the WildfireTracker application.
+5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to access the WildfireWatchtower application.
 
 ## Features 
 
@@ -105,9 +105,9 @@ React Router: A routing library for managing navigation within the application.
 
 Meet the awesome team behind this project:
 
-### [Farrah U.]([https://github.com/Farrah-Unger]) --> https://github.com/Farrah-Unger
+### Farrah U. --> [https://github.com/Farrah-Unger]([https://github.com/Farrah-Unger])
 
-### [Tazmeen A.]([https://github.com/TazA01]) --> https://github.com/TazA01
+### Tazmeen A. --> [https://github.com/TazA01)]([https://github.com/TazA01]) 
 
-### [Michelle O.]([https://github.com/chemille]) --> [https://github.com/chemille
+### Michelle O. --> [https://github.com/chemille]([https://github.com/chemille]) 
 
