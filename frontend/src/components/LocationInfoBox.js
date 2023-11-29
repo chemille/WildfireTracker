@@ -7,8 +7,6 @@ import { useState } from "react"
 const LocationInfoBox = ({ title, lat, lng, onClose }) => {
     const [resources, setResources] = useState(null)
 
-    // API calls here
-    // we want the information passed to resourceinfo on the onclick
     const safeHavenApiCall = async () => {
         const shelters = await axios.get(`https://api.geoapify.com/v2/places?categories=service.social_facility.shelter,building.place_of_worship,education.library,education.school&filter=circle:${lng},${lat},32000&apiKey=${process.env.REACT_APP_GEOAPIFY_PLACES_KEY}`);
         const shelterArr = []
