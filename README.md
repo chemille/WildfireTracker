@@ -49,6 +49,8 @@ To run the WildfireTracker locally, follow these steps:
 
 5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to access the WildfireTracker application.
 
+## Features 
+
 ### 1. Interactive Location Input
 
 - Users can input their location through an interactive interface.
