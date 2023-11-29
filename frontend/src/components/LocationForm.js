@@ -27,6 +27,18 @@ const LocationForm = () => {
     let coordinates = await getCoordinates();
     // console.log('coordinates:', coordinates)
 
+  const getCoordinates = async () => {
+    let response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${selectedLocation}&lang=en&limit=4&format=json&apiKey=${process.env.REACT_APP_GEOAPIFY_KEY}`)
+    let coordinatesArr = [response.data.results[0].lat, response.data.results[0].lon]
+    return coordinatesArr
+  }
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    let coordinates = await getCoordinates();
+    // console.log('coordinates:', coordinates)
+
     try {
       if (selectedLocation && coordinates) {
         // Redirect to the map page with the selected location
