@@ -31,19 +31,25 @@ Before you begin, ensure you have the following dependencies installed:
 To run the WildfireTracker locally, follow these steps:
 
 1. Clone this repository to your local machine.
-### `git clone https://github.com/chemille/WildfireTracker.git`
+   ```bash
+   git clone https://github.com/chemille/WildfireTracker.git
 
 2. Navigate to the project directory.
-### `cd wildfiretracker`
-### `cd frontend`
+   ```bash
+   cd wildfiretracker
+   cd frontend
 
 3. Install the required dependencies using npm.
-### `npm install`
+   ```bash
+   npm install
 
-4. Start the development server.
-### `npm start`
+5. Start the development server.
+   ```bash
+   npm start
 
 5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to access the WildfireTracker application.
+
+## Features 
 
 ### 1. Interactive Location Input
 
@@ -99,9 +105,9 @@ React Router: A routing library for managing navigation within the application.
 
 Meet the awesome team behind this project:
 
-### [Farrah U.]([https://github.com/Farrah-Unger])
+### [Farrah U.]([https://github.com/Farrah-Unger]) --> https://github.com/Farrah-Unger
 
-### [Tazmeen A.]([https://github.com/TazA01])
+### [Tazmeen A.]([https://github.com/TazA01]) --> https://github.com/TazA01
 
-### [Michelle O.]([[https://github.com/chemille])
+### [Michelle O.]([https://github.com/chemille]) --> [https://github.com/chemille
 
