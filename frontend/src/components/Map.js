@@ -31,7 +31,6 @@ const Map = () => {
           lat: ev.geometries[0].coordinates[1],
           lng: ev.geometries[0].coordinates[0],
         }));
-      console.log("New Wildfires:", newWildFires);
       setWildFires(newWildFires);
     } catch (error) {
       console.error("Error fetching natural disasters:", error);
@@ -57,8 +56,6 @@ const Map = () => {
   useEffect(() => {
     fetchWildFires();
   }, []);
-
-  console.log("Current clicked state:", clicked);
 
   return (
     <div
@@ -87,7 +84,7 @@ const Map = () => {
           onClose={closeInfoBox}
         />
       )}
-
+    <p>Click on a 🔥 marker for more information and resources.</p>
     </div>
   );
 
