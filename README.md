@@ -10,19 +10,23 @@ This respository contains the source code for the WildfireWatchtower application
 
 Before you begin, ensure you have the following dependencies installed:
 
-1. [google-map-react](https://www.npmjs.com/package/google-map-react)
+1. Install all required dependencies. If you have missing packages, complete the next steps. 
+   ```bash
+   npm install package.json
+
+2. [google-map-react](https://www.npmjs.com/package/google-map-react)
    ```bash
    npm install google-map-react
   
-2. @geoapify/geocoder-autocomplete
+3. @geoapify/geocoder-autocomplete
     ```bash
     npm install @geoapify/geocoder-autocomplete
 
-3. react-router-dom
+4. react-router-dom
     ```bash
     npm install react-router-dom
 
-4. Axios library
+5. Axios library
    ```bash
    npm install axios
 
@@ -75,6 +79,7 @@ To run the WildfireWatchtower locally, follow these steps:
   - Hospitals
   - Lodging
   - Safe havens
+  - Red Cross Tips
 
 ### 6. User-Friendly Interface
 
