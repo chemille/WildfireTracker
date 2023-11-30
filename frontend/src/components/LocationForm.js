@@ -4,6 +4,7 @@ import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-g
 import '@geoapify/geocoder-autocomplete/styles/minimal.css';
 import axios from 'axios';
 import '../styles/locationForm.css';
+import wildFire from '../styles/download_1.png'
 
 const LocationForm = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -47,21 +48,27 @@ const LocationForm = () => {
   console.log('Render form with selected location:', selectedLocation);
 
   return (
-    <div>
-      <h1>Wildfire Watchtower</h1>
-      <p>According to the National Interagency Fire Center (NIFC), there have been 53,070 wildfire incidents and 2,584,377 acres burned year-to-date.  
+  <div className='outer-container'>
+    <div className='container'>
+    <div className='image-container'>
+      <img src={wildFire} alt='Wildfire Image' />
+    </div>
+    <div className='title-box'>
+      <h1 className='title'>Wildfire Watchtower</h1>
+      <p className='text'>According to the National Interagency Fire Center (NIFC), there have been 53,070 wildfire incidents and 2,584,377 acres burned year-to-date.  
       Wildfire Watchtower was created to help individuals check for wildfires nearby and offer community resources for those affected by wildfire activity.</p>
-      <p>Please type in your location (e.g., City, State). It will take you to a map with wildfire markers that you can click for more information.</p>
-    
+      <p className='text'>Please type in your location (e.g., City, State). It will take you to a map with wildfire markers that you can click for more information.</p>
+    </div>
     <GeoapifyContext apiKey={process.env.REACT_APP_GEOAPIFY_CONTEXT_KEY} >
-      <form onSubmit={handleSubmit}>
+      <form className='form' onSubmit={handleSubmit}>
         <GeoapifyGeocoderAutocomplete
           limit={5}
           preprocessHook={handleSelect}
         />
-        <button type="submit">Submit</button>
+        <button className='submit-button' type="submit">Submit</button>
       </form>
     </GeoapifyContext>
+    </div>
     </div>
   );
 };

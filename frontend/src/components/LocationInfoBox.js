@@ -55,9 +55,9 @@ const LocationInfoBox = ({ title, lat, lng, onClose }) => {
 
     return (
         <div className="location-info">
-            <div className="X" onClick={() => onClose()}>X</div>
-            <div><strong>{title}</strong></div>
-            <div>
+            <button className="close-button" onClick={() => onClose()}>X</button>
+            <div className="title"><strong>{title}</strong></div>
+            <div className="resources-section">
                 <span>Resources</span>
                 <button className="buttons" onClick={() => safeHavenApiCall()}>Safe Havens</button>
                 <button className="buttons" onClick={() => hotelApiCall()}>Hotels</button>
@@ -66,7 +66,7 @@ const LocationInfoBox = ({ title, lat, lng, onClose }) => {
 
             {resources && (<ResourceInfoBox resourcesList={resources}></ResourceInfoBox>)}
             <div>
-        <button className = "buttons" onClick={toggleRedCrossTips}>
+        <button className = "toggle-tips-button" onClick={toggleRedCrossTips}>
           {showRedCrossTips ? "Hide Red Cross Tips" : "Show Red Cross Tips"}
         </button>
       </div>

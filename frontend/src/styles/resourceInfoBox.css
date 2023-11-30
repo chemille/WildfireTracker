@@ -1,8 +1,7 @@
 .resource-info {
-    /* position: absolute; */
     top: 480px;
     right: 40px;
-    width: 420px;
+    width: 96%;
     min-height: 180px;
     padding: 15px;
     background-color: rgb(83, 83, 232);
@@ -10,4 +9,8 @@
     font-size: 16px;
     color: white;
   }
-  
+  @media (max-width: 480px) {
+    .resource-info{
+      width: 420px;
+    }
+  }

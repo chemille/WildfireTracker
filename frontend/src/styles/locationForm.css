@@ -18,3 +18,83 @@
     display: inline-block;
     font-size: 16px;
 }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  
+  .text {
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  
+
+  .autocomplete-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .submit-button {
+    transition-duration: 0.4s;
+    background-color: #0462aa;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius:5px;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  .submit-button:hover {
+    color: white;
+     background-color: black;
+     border-radius:5px;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      max-width: 100%;
+    }
+  }

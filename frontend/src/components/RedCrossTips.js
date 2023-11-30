@@ -3,7 +3,7 @@ import React from "react";
 const RedCrossTips = () => {
     return (
         <div>
-        <p>
+        <p className="redCrossStyles">
             <li> Check your emergency supplies replenishing any needed items. </li>
             <li> Check your first aid kit, have flashlights or battery - powered lanterns, extra batteries, and a backup battery for your cell phone.For a complete emergency supply list, see https://www.redcross.org/get-help/how-to-prepare-for-emergencies/survival-kit-supplies.html. </li>
             <li> Organize your emergency supplies into two kits.

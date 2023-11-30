@@ -1,5 +1,22 @@
 .map {
-  width: 75vh;
-  height: 75vh;
+  width: 70vh;
+  height: 70vh;
   position: relative;
+}
+
+
+
+.map p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .map {
+    height: 450px; 
+  }
+  .map p{
+    display: flex;
+    justify-content: center;
+  }
 }
