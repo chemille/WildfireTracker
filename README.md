@@ -100,6 +100,8 @@ Axios: A library for making HTTP requests to the backend API.
 
 React Router: A routing library for managing navigation within the application.
 
+Render: Cloud application hosting for deployment.
+
 ## APIs Used
 
 - **Geoapify Geocoding API:** Used for location autocomplete and geocoding.
